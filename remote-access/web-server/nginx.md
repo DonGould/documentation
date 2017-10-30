@@ -34,7 +34,7 @@ NGINX defaults its web page location to `/var/www/html` on Raspbian. Navigate to
 ## Additional - Install PHP
 
 ```bash
-sudo apt-get install php5-fpm
+sudo apt-get install php7.0-fpm
 ```
 
 ### Enable PHP in NGINX
@@ -78,15 +78,15 @@ location ~ \.php$ {
 It should look like this:
 
 ```
-        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-        #
+         # pass PHP scripts to FastCGI server
+
         location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
-        
-                # With php5-cgi alone:
+
+                # With php-fpm (or other unix sockets):
+                fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+                # With php-cgi (or other tcp sockets):
         #       fastcgi_pass 127.0.0.1:9000;
-                # With php5-fpm:
-                fastcgi_pass unix:/var/run/php5-fpm.sock;
         }
 ```
 
